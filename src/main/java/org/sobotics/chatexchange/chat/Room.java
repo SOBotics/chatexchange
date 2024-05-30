@@ -35,14 +35,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import javax.websocket.ClientEndpointConfig;
-import javax.websocket.ClientEndpointConfig.Builder;
-import javax.websocket.ClientEndpointConfig.Configurator;
-import javax.websocket.DeploymentException;
-import javax.websocket.Endpoint;
-import javax.websocket.EndpointConfig;
-import javax.websocket.Session;
-
+import jakarta.websocket.*;
 import org.glassfish.tyrus.client.ClientManager;
 import org.glassfish.tyrus.client.ClientProperties;
 import org.glassfish.tyrus.container.jdk.client.JdkClientContainer;
@@ -187,8 +180,8 @@ public final class Room {
 		}
 		LOGGER.debug("Connecting to chat WebSocket at URL {} for room {}", websocketUrl, roomId);
 		ClientManager client = ClientManager.createClient(JdkClientContainer.class.getName());
-		Builder configBuilder = ClientEndpointConfig.Builder.create();
-		configBuilder.configurator(new Configurator() {
+		ClientEndpointConfig.Builder configBuilder = ClientEndpointConfig.Builder.create();
+		configBuilder.configurator(new ClientEndpointConfig.Configurator() {
 			@Override
 			public void beforeRequest(Map<String, List<String>> headers) {
 				headers.put("Origin", Arrays.asList(hostUrlBase));
