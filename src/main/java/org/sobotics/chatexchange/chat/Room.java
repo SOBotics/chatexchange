@@ -38,7 +38,6 @@ import java.util.stream.StreamSupport;
 import jakarta.websocket.*;
 import org.glassfish.tyrus.client.ClientManager;
 import org.glassfish.tyrus.client.ClientProperties;
-import org.glassfish.tyrus.container.jdk.client.JdkClientContainer;
 import org.jsoup.Connection.Response;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -179,7 +178,7 @@ public final class Room {
 			return;
 		}
 		LOGGER.debug("Connecting to chat WebSocket at URL {} for room {}", websocketUrl, roomId);
-		ClientManager client = ClientManager.createClient(JdkClientContainer.class.getName());
+		ClientManager client = ClientManager.createClient(org.glassfish.tyrus.container.grizzly.client.GrizzlyClientContainer.class.getName());
 		ClientEndpointConfig.Builder configBuilder = ClientEndpointConfig.Builder.create();
 		configBuilder.configurator(new ClientEndpointConfig.Configurator() {
 			@Override
